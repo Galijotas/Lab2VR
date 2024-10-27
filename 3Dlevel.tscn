@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://btk0w7tlse01i"]
+[gd_scene load_steps=44 format=3 uid="uid://btk0w7tlse01i"]
 
 [ext_resource type="Texture2D" uid="uid://cb2l04qy2pfnr" path="res://Textures/Grass.jpg" id="2_4xxvw"]
 [ext_resource type="PackedScene" uid="uid://x3rogkcfjvi" path="res://playerNode.tscn" id="2_rg3pb"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://du340nt3voh0y" path="res://Textures/Fence/HorizontalPole/green_rough_planks_nor_gl_1k.jpg" id="9_8d8jr"]
 [ext_resource type="Texture2D" uid="uid://d2l2poqr3v58f" path="res://Textures/Fence/HorizontalPole/green_rough_planks_rough_1k.jpg" id="10_6cm6y"]
 [ext_resource type="Texture2D" uid="uid://8vooxefyugry" path="res://Textures/BasketBall/Board/Basketball_Post_d.tga" id="15_nca6y"]
+[ext_resource type="PackedScene" uid="uid://bbsy3778n8mb8" path="res://button.tscn" id="18_ad77c"]
+[ext_resource type="PackedScene" uid="uid://dmovk0fklb5q0" path="res://Lever.tscn" id="19_3myvp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_31nu6"]
 albedo_texture = ExtResource("2_4xxvw")
@@ -438,13 +440,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0977491, 1.18959, -5.47583)
 text = "Press F to kick
 "
 
-[node name="Label3D2" type="Label3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.0215, 1.40524, 4.08329)
-text = "Press E to open/close
-"
-
 [node name="Label3D3" type="Label3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8.57396, 1.40524, 1.88148)
 text = "Left mouse button to pick/drop
 Right mouse button to throw
 "
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.0215, 1.40524, 4.08329)
+text = "Press E to open/close
+"
+
+[node name="Label3D4" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.99765, 1.40524, 0.287011)
+text = "Press E to press
+"
+
+[node name="Label3D5" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.27038, 1.87125, -1.99495)
+text = "Press E for on/off
+"
+
+[node name="Button" parent="." instance=ExtResource("18_ad77c")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -7.30156, 0.158668, 0.363763)
+
+[node name="Lever" parent="." instance=ExtResource("19_3myvp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.41126, 0.0170516, -1.99314)

@@ -21,7 +21,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event is InputEventMouseMotion:
 			neck.rotate_y(-event.relative.x * 0.01)
 			camera.rotate_x(-event.relative.y * 0.01)
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-50), deg_to_rad(60))
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(60))
 			
 	if Input.is_action_just_pressed("lclick"):
 		if picked_object == null:
@@ -38,6 +38,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact"):
 		door_object()
 		
+	if Input.is_action_just_pressed("interact"):
+		lever_object()
+		
+	if Input.is_action_just_pressed("interact"):
+		button_object()
+		
 	if Input.is_action_just_pressed("Kick"):
 		if kicked_object == null:
 			kick_object()
@@ -53,10 +59,20 @@ func kick_object():
 		kicked_object = null
 		
 
+func button_object():
+		var collider = interaction.get_collider()
+		if collider != null and collider.has_method("ButtonInteract"):
+			collider.ButtonInteract()
+
 func door_object():
 		var collider = interaction.get_collider()
 		if collider != null and collider.has_method("DoorInteract"):
 			collider.DoorInteract()
+			
+func lever_object():
+		var collider = interaction.get_collider()
+		if collider != null and collider.has_method("LeverInteract"):
+			collider.LeverInteract()
 
 func pick_object():
 	var collider = interaction.get_collider()

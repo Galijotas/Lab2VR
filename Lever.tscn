@@ -1,0 +1,116 @@
+[gd_scene load_steps=13 format=3 uid="uid://dmovk0fklb5q0"]
+
+[ext_resource type="Script" path="res://Lever.gd" id="1_i77v1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcf5y"]
+albedo_color = Color(0.54099, 0.54099, 0.54099, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1kef4"]
+material = SubResource("StandardMaterial3D_wcf5y")
+size = Vector3(1, 2, 0.2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0jg0d"]
+points = PackedVector3Array(-0.5, -1, -0.1, -0.5, -1, 0.1, -0.5, 1, -0.1, 0.5, -1, -0.1, 0.5, -1, 0.1, -0.5, 1, 0.1, 0.5, 1, -0.1, 0.5, 1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dtroi"]
+albedo_color = Color(0.0862745, 0.145098, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3riat"]
+material = SubResource("StandardMaterial3D_dtroi")
+size = Vector3(0.4, 0.3, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cad4r"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xbtja"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="Animation" id="Animation_ykxy5"]
+resource_name = "LeverOn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(2.0944, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kklje"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wvcwu"]
+resource_name = "LeverOff"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.0944, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3gsp8"]
+_data = {
+"LeverOff": SubResource("Animation_wvcwu"),
+"LeverOn": SubResource("Animation_ykxy5"),
+"RESET": SubResource("Animation_kklje")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01391, 0)
+mesh = SubResource("BoxMesh_1kef4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01391, 0)
+shape = SubResource("ConvexPolygonShape3D_0jg0d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.958997, 0.151303)
+mesh = SubResource("BoxMesh_3riat")
+
+[node name="Hinge" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.966137, 0.1796)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Hinge" node_paths=PackedStringArray("animation_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.238803, -0.25617)
+script = ExtResource("1_i77v1")
+animation_player = NodePath("../../AnimationPlayer")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hinge/StaticBody3D2"]
+transform = Transform3D(0.115749, 0, 0, 0, 0.650918, -0.0555021, 0, 0.295215, 0.122376, 0, 0.0927539, 0.362253)
+mesh = SubResource("BoxMesh_cad4r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hinge/StaticBody3D2"]
+transform = Transform3D(0.115749, 0, 0, 0, 0.650918, -0.0555021, 0, 0.295215, 0.122376, 0, 0.0927539, 0.362253)
+shape = SubResource("ConvexPolygonShape3D_xbtja")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3gsp8")
+}
