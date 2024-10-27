@@ -5,6 +5,11 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
+@onready var interaction = $Neck/Camera3D/interaction
+@onready var hand = $Neck/Camera3D/hand
+
+var picked_object
+var pull_power = 8
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -15,7 +20,29 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event is InputEventMouseMotion:
 			neck.rotate_y(-event.relative.x * 0.01)
 			camera.rotate_x(-event.relative.y * 0.01)
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-30), deg_to_rad(60))
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-50), deg_to_rad(60))
+			
+	if Input.is_action_just_pressed("lclick"):
+		if picked_object == null:
+			pick_object()
+		elif picked_object != null:
+			remove_object()
+			
+	if Input.is_action_just_pressed("throwObject"):
+		if picked_object != null:
+			var knockback = picked_object.position - position
+			picked_object.apply_central_impulse(knockback * 3)
+			remove_object()
+	
+
+func pick_object():
+	var collider = interaction.get_collider()
+	if collider != null and collider is RigidBody3D:
+		picked_object = collider
+		
+func remove_object():
+	if picked_object != null:
+		picked_object = null
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -36,5 +63,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+		
+	if picked_object != null:
+		var a = picked_object.global_transform.origin
+		var b = hand.global_transform.origin
+		picked_object.set_linear_velocity((b-a)* pull_power)
 
 	move_and_slide()

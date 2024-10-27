@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://btk0w7tlse01i"]
+[gd_scene load_steps=22 format=3 uid="uid://btk0w7tlse01i"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_mhm1r"]
 [ext_resource type="Texture2D" uid="uid://cb2l04qy2pfnr" path="res://Textures/Grass.jpg" id="2_4xxvw"]
@@ -57,6 +57,13 @@ size = Vector3(0.1, 1.5, 1.5)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vkgr2"]
 points = PackedVector3Array(-0.0619048, -0.761756, -0.761756, 0.0571312, 0.761877, 0.761756, 0.0571312, 0.761877, -0.761756, 0.0571429, -0.761756, 0.761756, -0.0619048, 0.761728, 0.761756, 0.0571429, -0.761756, -0.761756, -0.0619048, -0.761756, 0.761756, -0.0619048, 0.761728, -0.761756, 0.0571429, 0.499835, -0.761756)
 
+[sub_resource type="SphereMesh" id="SphereMesh_l5v17"]
+radius = 0.3
+height = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pyi6f"]
+radius = 0.298963
+
 [node name="World" type="Node3D"]
 
 [node name="Ground" type="MeshInstance3D" parent="."]
@@ -72,6 +79,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27703, 0)
 script = ExtResource("1_mhm1r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="player"]
+visible = false
 mesh = SubResource("CapsuleMesh_bgl1r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
@@ -81,6 +89,12 @@ shape = SubResource("ConvexPolygonShape3D_ofbtc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66153, 0)
 
 [node name="Camera3D" type="Camera3D" parent="player/Neck"]
+
+[node name="interaction" type="RayCast3D" parent="player/Neck/Camera3D"]
+target_position = Vector3(0, 0, -3)
+
+[node name="hand" type="Marker3D" parent="player/Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.61226)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_68c4y")
@@ -332,3 +346,12 @@ sides = 20
 
 [node name="Rectangular Goalpost2" parent="." instance=ExtResource("3_n6ow2")]
 transform = Transform3D(-0.999889, 0, 0.0148698, 0, 1, 0, -0.0148698, 0, -0.999889, 0, 0, -6.6918)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25909, -2.81292)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_l5v17")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_pyi6f")
