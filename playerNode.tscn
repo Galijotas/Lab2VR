@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://x3rogkcfjvi"]
+[gd_scene load_steps=6 format=3 uid="uid://x3rogkcfjvi"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_bggl5"]
 [ext_resource type="Script" path="res://reticle.gd" id="2_0hu0g"]
+[ext_resource type="PackedScene" uid="uid://c2jtc4w4sce5v" path="res://GravityGun/gravity_gun.glb" id="2_b7tq7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bgl1r"]
 
@@ -25,10 +26,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66153, 0)
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 
 [node name="interaction" type="RayCast3D" parent="Neck/Camera3D"]
-target_position = Vector3(0, 0, -3)
+target_position = Vector3(0, 0, -5)
 
 [node name="hand" type="Marker3D" parent="Neck/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.61226)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6903)
+
+[node name="WeaponRig" type="Node3D" parent="Neck/Camera3D"]
+
+[node name="Sketchfab_Scene" parent="Neck/Camera3D/WeaponRig" instance=ExtResource("2_b7tq7")]
+transform = Transform3D(0.0174524, 0, -0.999848, 0, 1, 0, 0.999848, 0, 0.0174524, 0.35, -0.55, -0.7)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

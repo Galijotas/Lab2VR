@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bghlnhrbo0mnq"
+path.s3tc="res://.godot/imported/gravity_gun_3.jpg-f4c39016fa5353400fbd9489d4b0a543.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "8adf314dbe7f2ae262a8a054d4e7ca85"
+}
+
+[deps]
+
+source_file="res://GravityGun/gravity_gun_3.jpg"
+dest_files=["res://.godot/imported/gravity_gun_3.jpg-f4c39016fa5353400fbd9489d4b0a543.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

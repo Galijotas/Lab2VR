@@ -10,6 +10,7 @@ const JUMP_VELOCITY = 4.5
 
 var picked_object
 var pull_power = 8
+var kicked_object
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -33,7 +34,29 @@ func _unhandled_input(event: InputEvent) -> void:
 			var knockback = picked_object.position - position
 			picked_object.apply_central_impulse(knockback * 3)
 			remove_object()
+			
+	if Input.is_action_just_pressed("interact"):
+		door_object()
+		
+	if Input.is_action_just_pressed("Kick"):
+		if kicked_object == null:
+			kick_object()
+
 	
+
+func kick_object():
+	var collider = interaction.get_collider()
+	if collider != null and collider is RigidBody3D:
+		kicked_object = collider
+		var knockback = kicked_object.position - position
+		kicked_object.apply_central_impulse(knockback * 10)
+		kicked_object = null
+		
+
+func door_object():
+		var collider = interaction.get_collider()
+		if collider != null and collider.has_method("DoorInteract"):
+			collider.DoorInteract()
 
 func pick_object():
 	var collider = interaction.get_collider()

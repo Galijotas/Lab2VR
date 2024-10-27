@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://btk0w7tlse01i"]
+[gd_scene load_steps=23 format=3 uid="uid://btk0w7tlse01i"]
 
 [ext_resource type="Texture2D" uid="uid://cb2l04qy2pfnr" path="res://Textures/Grass.jpg" id="2_4xxvw"]
 [ext_resource type="PackedScene" uid="uid://x3rogkcfjvi" path="res://playerNode.tscn" id="2_rg3pb"]
 [ext_resource type="PackedScene" uid="uid://ciet15anrsf7u" path="res://Football/rectangular_goalpost_2.tscn" id="3_n6ow2"]
+[ext_resource type="PackedScene" uid="uid://7ygc8je71fxm" path="res://door.tscn" id="4_pgrju"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_31nu6"]
 albedo_texture = ExtResource("2_4xxvw")
@@ -47,10 +48,13 @@ size = Vector3(0.1, 4, 0.1)
 points = PackedVector3Array(0.0604295, 2.01227, 0.0604295, -0.0622699, -2.01227, -0.0622699, -0.0622699, -2.01227, 0.0604295, -0.0622699, 2.01227, -0.0622699, 0.0604295, -2.01227, -0.0622699, 0.0604295, -2.01227, 0.0604295, -0.0622699, 2.01227, 0.0604295, 0.0604295, 2.01227, -0.0622699)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5eild"]
-size = Vector3(0.1, 1.5, 1.5)
+size = Vector3(0.1, 1.5, 2)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vkgr2"]
 points = PackedVector3Array(-0.0619048, -0.761756, -0.761756, 0.0571312, 0.761877, 0.761756, 0.0571312, 0.761877, -0.761756, 0.0571429, -0.761756, 0.761756, -0.0619048, 0.761728, 0.761756, 0.0571429, -0.761756, -0.761756, -0.0619048, -0.761756, 0.761756, -0.0619048, 0.761728, -0.761756, 0.0571429, 0.499835, -0.761756)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0argb"]
+bounce = 0.4
 
 [sub_resource type="SphereMesh" id="SphereMesh_l5v17"]
 radius = 0.3
@@ -317,9 +321,10 @@ mesh = SubResource("BoxMesh_5eild")
 shape = SubResource("ConvexPolygonShape3D_vkgr2")
 
 [node name="BasketballHoop" type="CSGTorus3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.84564, 2.83238, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.64899, 2.83238, 0)
 use_collision = true
-outer_radius = 0.4
+inner_radius = 0.692457
+outer_radius = 0.54255
 sides = 20
 
 [node name="Rectangular Goalpost2" parent="." instance=ExtResource("3_n6ow2")]
@@ -327,6 +332,8 @@ transform = Transform3D(-0.999889, 0, 0.0148698, 0, 1, 0, -0.0148698, 0, -0.9998
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25909, -2.81292)
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_0argb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 mesh = SubResource("SphereMesh_l5v17")
@@ -365,3 +372,6 @@ visible = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InvisibleWall2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50856, 0)
 shape = SubResource("BoxShape3D_0jtlm")
+
+[node name="Door" parent="." instance=ExtResource("4_pgrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.394, 1.29277, 2.96153)
